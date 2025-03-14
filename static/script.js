@@ -1,118 +1,37 @@
-const itemsContainer = document.getElementById('items-container');
-const searchBar = document.getElementById('searchBar');
-const overlay = document.getElementById('overlay');
-const overlayImage = document.getElementById('overlay-image');
-const overlayName = document.getElementById('overlay-name');
-const overlayID = document.getElementById('overlay-id');
-const overlayIcon = document.getElementById('overlay-icon');
-const closeOverlay = document.getElementById('close-overlay');
-const pagination = document.getElementById('pagination');
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("loadingSpinner").style.display = "none";
+    document.getElementById("header").style.display = "block";
+    document.getElementById("container").style.display = "block";
 
-let currentPage = 1;
-const itemsPerPage = 50;
-let itemsData = [];
+    loadImages();
+});
 
-// Load JSON data
-fetch('data/items.json')
-    .then(response => response.json())
-    .then(data => {
-        itemsData = data;
-        displayItems();
-        setupPagination();
-    });
+function loadImages() {
+    const grid = document.getElementById("iconGrid");
+    const imageSizes = ["100x100", "200x200", "300x300"];
+    
+    for (let i = 1; i <= 20; i++) {
+        let img = document.createElement("img");
+        img.src = `assets/${imageSizes[i % 3]}/image${i}.png`;
+        img.onerror = function() { this.src = "assets/fallback.png"; };
+        img.classList.add("icon-card");
 
-// Function to display items
-function displayItems() {
-    itemsContainer.innerHTML = '';
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const itemsToDisplay = itemsData.slice(start, end);
+        img.onclick = function () {
+            openModal(`Image ${i}`, `Item ${i}`, `icon${i}.png`, this.src);
+        };
 
-    itemsToDisplay.forEach(item => {
-        const img = document.createElement('img');
-        img.dataset.icon = item.Icon_Name;
-        img.dataset.size = 100;
-
-        img.src = `pngs/100x100/${item.Icon_Name}.png`;
-        img.onerror = () => tryNextSize(img);
-
-        img.classList.add('item');
-        img.setAttribute('data-name', item.Name);
-        img.setAttribute('data-id', item.Item_ID);
-
-        img.addEventListener('click', () => showOverlay(img));
-
-        itemsContainer.appendChild(img);
-    });
-}
-
-// Function to try the next image size (200x200 → 300x300 → fallback)
-function tryNextSize(img) {
-    const nextSize = parseInt(img.dataset.size) * 2;
-    if (nextSize <= 300) {
-        img.dataset.size = nextSize;
-        img.src = `pngs/${nextSize}x${nextSize}/${img.dataset.icon}.png`;
-        img.onerror = () => tryNextSize(img);
-    } else {
-        img.src = 'static/images/fallback.png';
+        grid.appendChild(img);
     }
 }
 
-// Function to show overlay
-function showOverlay(img) {
-    overlay.style.display = 'flex';
-    overlayImage.src = img.src;
-    overlayName.textContent = img.getAttribute('data-name');
-    overlayID.textContent = img.getAttribute('data-id');
-    overlayIcon.textContent = img.dataset.icon;
+function openModal(name, itemId, iconName, imgSrc) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalImage").src = imgSrc;
+    document.getElementById("modalName").innerText = name;
+    document.getElementById("modalItemId").innerText = itemId;
+    document.getElementById("modalIconName").innerText = iconName;
 }
 
-// Close overlay
-closeOverlay.addEventListener('click', () => {
-    overlay.style.display = 'none';
-});
-
-// Setup pagination
-function setupPagination() {
-    pagination.innerHTML = '';
-
-    let totalPages = Math.ceil(itemsData.length / itemsPerPage);
-    for (let i = 1; i <= totalPages; i++) {
-        let pageButton = document.createElement('button');
-        pageButton.textContent = i;
-        pageButton.addEventListener('click', () => {
-            currentPage = i;
-            displayItems();
-        });
-        pagination.appendChild(pageButton);
-    }
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
 }
-
-// Search functionality
-searchBar.addEventListener('input', () => {
-    const query = searchBar.value.toLowerCase();
-    itemsContainer.innerHTML = '';
-
-    const filteredItems = itemsData.filter(item =>
-        item.Name.toLowerCase().includes(query) ||
-        item.Item_ID.includes(query) ||
-        item.Icon_Name.toLowerCase().includes(query)
-    );
-
-    filteredItems.forEach(item => {
-        const img = document.createElement('img');
-        img.dataset.icon = item.Icon_Name;
-        img.dataset.size = 100;
-
-        img.src = `pngs/100x100/${item.Icon_Name}.png`;
-        img.onerror = () => tryNextSize(img);
-
-        img.classList.add('item');
-        img.setAttribute('data-name', item.Name);
-        img.setAttribute('data-id', item.Item_ID);
-
-        img.addEventListener('click', () => showOverlay(img));
-
-        itemsContainer.appendChild(img);
-    });
-});
