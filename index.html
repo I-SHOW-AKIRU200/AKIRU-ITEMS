@@ -8,15 +8,27 @@
 </head>
 <body>
     <header>
-        <img src="static/images/logo.png" alt="Website Logo" class="logo">
-        <input type="text" id="searchBox" placeholder="Search by Name, ID, or Icon Name">
+        <img src="static/images/logo.png" alt="Logo" class="logo">
+        <h1>Item Info Viewer</h1>
     </header>
-    
-    <div id="itemsContainer"></div>
-    <div id="pagination"></div>
 
-    <div id="overlay" class="hidden">
-        <div id="overlayContent"></div>
+    <div id="items-container" class="grid-container"></div>
+
+    <!-- Pagination -->
+    <div id="pagination-container">
+        <button id="prevPage">«</button>
+        <div id="pageNumbers"></div>
+        <button id="nextPage">»</button>
+    </div>
+
+    <div id="overlay" class="overlay">
+        <div id="overlay-content">
+            <span id="close-overlay">&times;</span>
+            <h2 id="item-name"></h2>
+            <p><strong>ID:</strong> <span id="item-id"></span></p>
+            <p><strong>Icon Name:</strong> <span id="item-icon"></span></p>
+            <p><strong>Text ID:</strong> <span id="item-textid"></span></p>
+        </div>
     </div>
 
     <script src="static/script.js"></script>
