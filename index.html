@@ -1,31 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Info Viewer</title>
-    <link rel="stylesheet" href="static/styles.css">
-</head>
-<body>
-    <header>
-        <h1>Item Info Viewer</h1>
-        <input type="text" id="searchBar" placeholder="Search items...">
-    </header>
-    
-    <div id="items-container"></div>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <title>AKIRU Items</title>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+    <link rel="stylesheet" href="styles.css">  
+</head>  
+<body>  
 
-    <div id="overlay">
-        <div id="overlay-content">
-            <img id="overlay-image" src="">
-            <p><strong>Name:</strong> <span id="overlay-name"></span></p>
-            <p><strong>Item ID:</strong> <span id="overlay-id"></span></p>
-            <p><strong>Icon Name:</strong> <span id="overlay-icon"></span></p>
-            <button id="close-overlay">Close</button>
-        </div>
-    </div>
+    <div class="loading-spinner" id="loadingSpinner">  
+        <div class="spinner"></div>  
+    </div>  
 
-    <div id="pagination"></div>
+    <div class="header" id="header" style="display: none;">  
+        <img src="assets/header.png" alt="AKIRU ItemID">  
+        <div class="input-container">  
+            <textarea id="search" placeholder="Search by Keywords, Name, Item ID, or Icon Name" oninput="filterIcons()"></textarea>  
+        </div>  
+    </div>  
 
-    <script src="static/script.js"></script>
-</body>
+    <div class="container" id="container" style="display: none;">  
+        <div class="grid-container" id="iconGrid"></div>  
+    </div>  
+
+    <!-- Modal -->
+    <div class="modal" id="modal">  
+        <div class="modal-content">  
+            <img id="modalImage">  
+            <p><b>Name:</b> <span id="modalName"></span><br><b>Item ID:</b> <span id="modalItemId"></span><br><b>Icon Name:</b> <span id="modalIconName"></span></p>  
+            <button class="modal-close" onclick="closeModal()">Tap to Close</button>  
+        </div>  
+    </div>  
+
+    <script src="script.js"></script>  
+</body>  
 </html>
