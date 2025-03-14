@@ -1,7 +1,8 @@
 # AKIRU-ITEMS
 
 Project Structure
-**/ItemInfoViewer
+```shs
+/ItemInfoViewer
 │── 📄 index.html            (Main HTML file)
 │── 📂 static/               (Contains all static assets)
 │   ├── 📄 styles.css        (CSS styles)
@@ -13,4 +14,5 @@ Project Structure
 │   ├── 📂 videos/           (Videos folder)
 │   │   ├── intro.mp4       (Intro video)
 │── 📂 data/                 (Stores item data)
-│   ├── 📄 items.json        (JSON file with item information)**
+│   ├── 📄 items.json        (JSON file with item information)
+```
