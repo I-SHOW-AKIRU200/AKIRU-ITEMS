@@ -3,16 +3,16 @@
 Project Structure
 ```shs
 /ItemInfoViewer
-│── 📄 index.html            (Main HTML file)
-│── 📂 static/               (Contains all static assets)
-│   ├── 📄 styles.css        (CSS styles)
-│   ├── 📄 script.js         (JavaScript functionality)
-│   ├── 📂 images/           (Images folder)
-│   │   ├── logo.png        (Website logo)
-│   │   ├── fallback.png    (Fallback image for missing icons)
-│   │   ├── watermark.png   (Watermark for images)
-│   ├── 📂 videos/           (Videos folder)
-│   │   ├── intro.mp4       (Intro video)
-│── 📂 data/                 (Stores item data)
-│   ├── 📄 items.json        (JSON file with item information)
+│── index.html
+│── static/
+│   ├── styles.css
+│   ├── script.js
+│   ├── images/
+│   │   ├── fallback.png
+│── data/
+│   ├── items.json
+│── pngs/
+│   ├── 100x100/
+│   ├── 200x200/
+│   ├── 300x300/
 ```
